@@ -1,2 +1,0 @@
-# lazyos
-null
