@@ -12,10 +12,14 @@ net:
 qemu:
 	make clean
 
+	make -C kernel all
+
 	mkdir -p $(current_dir)/tmp
 	sudo mount $(DISK)p1 $(current_dir)/tmp
 	sudo mkdir -p $(current_dir)/tmp/EFI/BOOT
 	sudo cp $(emulator_dir)/BOOTX64.efi ./tmp/EFI/BOOT/BOOTX64.efi
+
+	sudo cp $(build_dir)/kernel/osImage ./tmp/osImage
 
 	sudo umount $(current_dir)/tmp
 	sudo losetup -D
