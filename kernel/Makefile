@@ -7,7 +7,7 @@ obj = 	$(BUILD_KERNEL)/head.o	\
 		$(BUILD_KERNEL)/kernel.o
 
 $(BUILD_KERNEL)/head.o:./src/head.S
-	gcc -E -I./include/ $< -o $(BUILD_KERNEL)/head.s
+	gcc -E -I./inc/ $< -o $(BUILD_KERNEL)/head.s
 	as --64 $(BUILD_KERNEL)/head.s -o $@
 $(BUILD_KERNEL)/kernel.o:./src/kernel.c
 	gcc $(CFLAGS) $< -o $@
