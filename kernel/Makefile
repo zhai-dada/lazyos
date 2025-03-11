@@ -9,6 +9,7 @@ obj = 	$(BUILD_KERNEL)/head.o		\
 		$(BUILD_KERNEL)/vsprintf.o	\
 		$(BUILD_KERNEL)/string.o	\
 		$(BUILD_KERNEL)/vbe.o		\
+		$(BUILD_KERNEL)/uefi.o		\
 		$(BUILD_KERNEL)/kernel.o
 
 $(BUILD_KERNEL)/head.o:./src/head.S
@@ -28,6 +29,9 @@ $(BUILD_KERNEL)/vsprintf.o:./src/lib/vsprintf.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/vbe.o:./src/driver/vbe.c
+	gcc $(CFLAGS) $< -o $@
+
+$(BUILD_KERNEL)/uefi.o:./src/uefi.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/kernel.o:./src/kernel.c
