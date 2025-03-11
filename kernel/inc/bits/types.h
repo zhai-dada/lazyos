@@ -11,4 +11,6 @@ typedef short           s16;
 typedef int             s32;
 typedef long            s64;
 
+#define NULL 0
+
 #endif

@@ -1,5 +1,12 @@
 #include <lib/string.h>
 
+s32 strlen(u8 *str)
+{
+    int res = 0;
+    for(res = 0; str[res] != '\0'; res++);
+    return res;
+}
+
 void* memcpy(void* dest, void* srcs, s64 num)
 {
     asm volatile

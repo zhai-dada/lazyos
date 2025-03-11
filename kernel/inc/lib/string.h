@@ -3,6 +3,11 @@
 
 #include <stdint.h>
 
+#define is_digit(c) ((c) >= '0' && (c) <= '9')
+
+s32 strlen(u8 *str);
+
+
 void* memcpy(void* dest, void* srcs, s64 num);
 
 #endif
