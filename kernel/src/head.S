@@ -1,4 +1,8 @@
-.global _start
+#include <linkage.h>
+
+.section .text
+
+ENTRY(_start)
 _start:
     mov %ss, %ax
     mov %ax, %ds
