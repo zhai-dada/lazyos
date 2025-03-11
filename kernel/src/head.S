@@ -1,0 +1,6 @@
+.global _start
+_start:
+    mov %ss, %ax
+    mov %ax, %ds
+    mov %ax, %cx
+    hlt
