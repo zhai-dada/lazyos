@@ -153,7 +153,9 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
         {
             fmt++;
             if (is_digit(*fmt))
+            {
                 precision = skip_atoi(&fmt);
+            }
             else if (*fmt == '*')
             {
                 fmt++;
@@ -173,7 +175,6 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
         switch (*fmt)
         {
         case 'c':
-
             if (!(flags & LEFT))
                 while (--field_width > 0)
                     *str++ = ' ';
@@ -183,7 +184,6 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             break;
 
         case 's':
-
             s = va_arg(args, s8 *);
             if (!s)
                 s = '\0';
@@ -210,7 +210,6 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             break;
 
         case 'p':
-
             if (field_width == -1)
             {
                 field_width = 2 * sizeof(void *);
@@ -221,11 +220,9 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             break;
 
         case 'x':
-
             flags |= SMALL;
 
         case 'X':
-
             if (qualifier == 'l')
                 str = number(str, va_arg(args, u64), 16, field_width, precision, flags);
             else
@@ -235,8 +232,8 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
         case 'd':
         case 'i':
             flags |= SIGN;
-        case 'u':
 
+        case 'u':
             if (qualifier == 'l')
                 str = number(str, va_arg(args, u64), 10, field_width, precision, flags);
             else
@@ -244,7 +241,6 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             break;
 
         case 'n':
-
             if (qualifier == 'l')
             {
                 s64 *ip = va_arg(args, s64 *);
@@ -256,10 +252,12 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
                 *ip = (str - buf);
             }
             break;
+
         case 'b': // binary
             u32 num = va_arg(args, unsigned long);
             str = number(str, num, 2, field_width, precision, flags);
             break;
+
         case 'm': // mac address
             flags |= SMALL | ZEROPAD;
             u8 *ptr = va_arg(args, u8 *);
@@ -272,6 +270,7 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             }
             str--;
             break;
+
         case 'r': // ip address
             flags |= SMALL;
             ptr = va_arg(args, u8 *);
@@ -284,13 +283,12 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
             }
             str--;
             break;
-        case '%':
 
+        case '%':
             *str++ = '%';
             break;
 
         default:
-
             *str++ = '%';
             if (*fmt)
                 *str++ = *fmt;

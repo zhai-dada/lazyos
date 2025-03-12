@@ -6,5 +6,6 @@
 #include <lib/string.h>
 
 s32 sprintf(s8 *buffer, const s8 *fmt, ...);
+s32 vsprintf(s8 *buf, const s8 *fmt, va_list args);
 
 #endif
