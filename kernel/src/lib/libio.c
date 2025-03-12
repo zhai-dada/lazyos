@@ -39,3 +39,55 @@ void mout64(u64 addr, u64 value)
 {
     *((volatile u64 *)addr) = value;
 }
+
+
+u8 port_in8(u16 port)
+{
+    u8 ret = 0;
+    asm volatile
+    (
+        "inb %%dx, %0       \n"
+        "mfence             \n"
+        : "=a"(ret)
+        : "d"(port)
+        : "memory"
+    );
+    return ret;
+}
+u32 port_in32(u16 port)
+{
+    u32 ret = 0;
+    asm volatile
+    (
+        "inl %%dx, %0       \n"
+        "mfence             \n"
+        : "=a"(ret)
+        : "d"(port)
+        : "memory"
+    );
+    return ret;
+}
+void port_out8(u16 port, u8 value)
+{
+    asm volatile
+    (
+        "outb %0, %%dx      \n"
+        "mfence             \n"
+        :
+        : "a"(value), "d"(port)
+        : "memory"
+    );
+    return;
+}
+void port_out32(u16 port, u32 value)
+{
+    asm volatile
+    (
+        "outl %0, %%dx      \n"
+        "mfence             \n"
+        :
+        : "a"(value), "d"(port)
+        : "memory"
+    );
+    return;
+}
