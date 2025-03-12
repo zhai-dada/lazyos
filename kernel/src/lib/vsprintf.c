@@ -27,11 +27,17 @@ static s8 *number(s8 *str, s64 num, s32 base, s32 size, s32 precision, s32 type)
     s32 i;
 
     if (type & SMALL)
+    {
         digits = "0123456789abcdefghijklmnopqrstuvwxyz";
+    }
     if (type & LEFT)
+    {
         type &= ~ZEROPAD;
+    }
     if (base < 2 || base > 36)
+    {
         return 0;
+    }
     c = (type & ZEROPAD) ? '0' : ' ';
     sign = 0;
     if (type & SIGN && num < 0)
@@ -40,46 +46,84 @@ static s8 *number(s8 *str, s64 num, s32 base, s32 size, s32 precision, s32 type)
         num = -num;
     }
     else
+    {
         sign = (type & PLUS) ? '+' : ((type & SPACE) ? ' ' : 0);
+    }
     if (sign)
+    {
         size--;
+    }
     if (type & SPECIAL)
+    {
         if (base == 16)
+        {
             size -= 2;
+        }
         else if (base == 8)
+        {
             size--;
+        }
+    }
     i = 0;
     if (num == 0)
+    {
         tmp[i++] = '0';
+    }
     else
+    {
         while (num != 0)
+        {
             tmp[i++] = digits[do_div(num, base)];
+        }
+    }
     if (i > precision)
+    {
         precision = i;
+    }
     size -= precision;
     if (!(type & (ZEROPAD + LEFT)))
+    {
         while (size-- > 0)
+        {
             *str++ = ' ';
+        }
+    }
     if (sign)
+    {
         *str++ = sign;
+    }
     if (type & SPECIAL)
+    {
         if (base == 8)
+        {
             *str++ = '0';
+        }
         else if (base == 16)
         {
             *str++ = '0';
-            *str++ = digits[33];
+            *str++ = digits[33]; // X
         }
+    }
     if (!(type & LEFT))
+    {
         while (size-- > 0)
+        {
             *str++ = c;
+        }
+    }
 
     while (i < precision--)
+    {
         *str++ = '0';
+    }
     while (i-- > 0)
+    {
         *str++ = tmp[i];
+    }
     while (size-- > 0)
+    {
         *str++ = ' ';
+    }
     return str;
 }
 
@@ -136,7 +180,9 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
 
         field_width = -1;
         if (is_digit(*fmt))
+        {
             field_width = skip_atoi(&fmt);
+        }
         else if (*fmt == '*')
         {
             fmt++;
@@ -162,7 +208,9 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
                 precision = va_arg(args, s32);
             }
             if (precision < 0)
+            {
                 precision = 0;
+            }
         }
 
         qualifier = -1;
@@ -176,37 +224,61 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
         {
         case 'c':
             if (!(flags & LEFT))
+            {
                 while (--field_width > 0)
+                {
                     *str++ = ' ';
+                }
+            }
             *str++ = (u8)va_arg(args, s32);
             while (--field_width > 0)
+            {
                 *str++ = ' ';
+            }
             break;
 
         case 's':
             s = va_arg(args, s8 *);
             if (!s)
+            {
                 s = '\0';
+            }
             len = strlen(s);
             if (precision < 0)
+            {
                 precision = len;
+            }
             else if (len > precision)
+            {
                 len = precision;
+            }
 
             if (!(flags & LEFT))
+            {
                 while (len < field_width--)
+                {
                     *str++ = ' ';
+                }
+            }
             for (i = 0; i < len; i++)
+            {
                 *str++ = *s++;
+            }
             while (len < field_width--)
+            {
                 *str++ = ' ';
+            }
             break;
 
         case 'o':
             if (qualifier == 'l')
+            {
                 str = number(str, va_arg(args, u64), 8, field_width, precision, flags);
+            }
             else
+            {
                 str = number(str, va_arg(args, u32), 8, field_width, precision, flags);
+            }
             break;
 
         case 'p':
@@ -224,9 +296,13 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
 
         case 'X':
             if (qualifier == 'l')
+            {
                 str = number(str, va_arg(args, u64), 16, field_width, precision, flags);
+            }
             else
+            {
                 str = number(str, va_arg(args, u32), 16, field_width, precision, flags);
+            }
             break;
 
         case 'd':
@@ -235,9 +311,13 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
 
         case 'u':
             if (qualifier == 'l')
+            {
                 str = number(str, va_arg(args, u64), 10, field_width, precision, flags);
+            }
             else
+            {
                 str = number(str, va_arg(args, u32), 10, field_width, precision, flags);
+            }
             break;
 
         case 'n':
@@ -291,9 +371,13 @@ s32 vsprintf(s8 *buf, const s8 *fmt, va_list args)
         default:
             *str++ = '%';
             if (*fmt)
+            {
                 *str++ = *fmt;
+            }
             else
+            {
                 fmt--;
+            }
             break;
         }
     }
