@@ -31,3 +31,13 @@ void* memcpy(void* dest, void* srcs, s64 num)
     );
     return dest;
 }
+
+void* memset(void *address, u8 c, s64 count)
+{
+    u8* tmp = (u8*)address;
+    for(u32 i = 0; i < count; ++i, ++tmp)
+    {
+        *tmp = c;
+    }
+    return address;
+}

@@ -9,5 +9,6 @@ s32 strlen(u8 *str);
 
 
 void* memcpy(void* dest, void* srcs, s64 num);
+void* memset(void *address, u8 c, s64 count);
 
 #endif
