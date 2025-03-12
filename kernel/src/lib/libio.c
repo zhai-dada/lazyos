@@ -40,7 +40,7 @@ void mout64(u64 addr, u64 value)
     *((volatile u64 *)addr) = value;
 }
 
-
+// 端口读写使用的是dx寄存器
 u8 port_in8(u16 port)
 {
     u8 ret = 0;
