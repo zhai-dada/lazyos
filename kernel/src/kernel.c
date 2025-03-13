@@ -17,5 +17,5 @@ int kernel(void)
     {
         ;
     }
-    return 0;
+    return SOK;
 }
