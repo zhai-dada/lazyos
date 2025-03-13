@@ -12,6 +12,7 @@ obj = 	$(BUILD_KERNEL)/head.o		\
 		$(BUILD_KERNEL)/serial.o	\
 		$(BUILD_KERNEL)/vbe.o		\
 		$(BUILD_KERNEL)/uefi.o		\
+		$(BUILD_KERNEL)/gate.o		\
 		$(BUILD_KERNEL)/kernel.o
 
 $(BUILD_KERNEL)/head.o:./src/head.S
@@ -40,6 +41,9 @@ $(BUILD_KERNEL)/vbe.o:./src/driver/vbe.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/uefi.o:./src/uefi.c
+	gcc $(CFLAGS) $< -o $@
+
+$(BUILD_KERNEL)/gate.o:./src/gate.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/kernel.o:./src/kernel.c

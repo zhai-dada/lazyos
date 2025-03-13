@@ -2,6 +2,7 @@
 #include <driver/serial.h>
 #include <driver/vbe.h>
 #include <uefi.h>
+#include <gate.h>
 
 int kernel(void)
 {
@@ -11,6 +12,7 @@ int kernel(void)
     vbe_init();
     serial_printf(SFGREEN, SBBLACK, "%s", a);
     color_printk(YELLOW, BLACK, "%s\n", a);
+    // int b = 1 / 0;
     while(1)
     {
         ;
