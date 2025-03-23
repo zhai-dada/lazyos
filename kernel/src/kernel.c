@@ -23,8 +23,9 @@ int kernel(void)
     
     get_cpuinfo();
 
-    int b = 1 / 0;
-
+    // int b = 1 / 0;
+    int* aa = (int*)0xffff80000aa00000;
+    *aa = 10;
     while (1)
     {
         ;
