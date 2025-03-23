@@ -15,6 +15,7 @@ obj = 	$(BUILD_KERNEL)/head.o		\
 		$(BUILD_KERNEL)/uefi.o		\
 		$(BUILD_KERNEL)/gate.o		\
 		$(BUILD_KERNEL)/trap.o		\
+		$(BUILD_KERNEL)/task.o		\
 		$(BUILD_KERNEL)/kernel.o
 
 $(BUILD_KERNEL)/head.o:./src/head.S
@@ -53,6 +54,9 @@ $(BUILD_KERNEL)/trap.o:./src/trap.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/gate.o:./src/gate.c
+	gcc $(CFLAGS) $< -o $@
+
+$(BUILD_KERNEL)/task.o:./src/task.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/kernel.o:./src/kernel.c
