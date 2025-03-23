@@ -4,6 +4,7 @@ CFLAGS 	:=	-mcmodel=large -fno-builtin -fno-stack-protector -fno-pie -fno-pic -f
 LDFLAGS :=	-b elf64-x86-64 -z muldefs -z noexecstack
 
 obj = 	$(BUILD_KERNEL)/head.o		\
+		$(BUILD_KERNEL)/entry.o		\
 		$(BUILD_KERNEL)/asm.o		\
 		$(BUILD_KERNEL)/libio.o		\
 		$(BUILD_KERNEL)/list.o		\
@@ -13,11 +14,16 @@ obj = 	$(BUILD_KERNEL)/head.o		\
 		$(BUILD_KERNEL)/vbe.o		\
 		$(BUILD_KERNEL)/uefi.o		\
 		$(BUILD_KERNEL)/gate.o		\
+		$(BUILD_KERNEL)/trap.o		\
 		$(BUILD_KERNEL)/kernel.o
 
 $(BUILD_KERNEL)/head.o:./src/head.S
 	gcc -E -I./inc/ $< -o $(BUILD_KERNEL)/head.s
 	as --64 $(BUILD_KERNEL)/head.s -o $@
+
+$(BUILD_KERNEL)/entry.o:./src/entry.S
+	gcc -E -I./inc/ $< -o $(BUILD_KERNEL)/entry.s
+	as --64 $(BUILD_KERNEL)/entry.s -o $@
 
 $(BUILD_KERNEL)/asm.o:./src/lib/asm.c
 	gcc $(CFLAGS) $< -o $@
@@ -41,6 +47,9 @@ $(BUILD_KERNEL)/vbe.o:./src/driver/vbe.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/uefi.o:./src/uefi.c
+	gcc $(CFLAGS) $< -o $@
+
+$(BUILD_KERNEL)/trap.o:./src/trap.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/gate.o:./src/gate.c

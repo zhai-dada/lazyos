@@ -3,6 +3,7 @@
 #include <driver/vbe.h>
 #include <uefi.h>
 #include <gate.h>
+#include <trap.h>
 
 int kernel(void)
 {
@@ -12,7 +13,10 @@ int kernel(void)
     vbe_init();
     serial_printf(SFGREEN, SBBLACK, "%s", a);
     color_printk(YELLOW, BLACK, "%s\n", a);
-    // int b = 1 / 0;
+
+    sys_vector_init();
+    int b = 1 / 0;
+
     while(1)
     {
         ;

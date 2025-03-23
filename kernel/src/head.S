@@ -131,6 +131,7 @@ gdt_table:
 	.quad	0x00cf9a000000ffff			/*7	KERNEL	Code	32-bit	Segment		38*/
 	.quad	0x00cf92000000ffff			/*8	KERNEL	Data	32-bit	Segment		40*/
 	.quad	0x0000000000000000			/*9 NULL descriptor						48*/
+	// TSS 128 bit, 两个 u64
 	.fill	100,8,0						/*10 ~ 11 TSS (jmp one segment <9>) 	50*/
 gdt_end:
 gdt_pointer:
