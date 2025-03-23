@@ -13,7 +13,10 @@ typedef long            s64;
 
 #define NULL 0
 
-#define SOK     0
-#define SFAIL   1
+#define SOK     1
+#define SFAIL   0
+
+#define YES 1
+#define NO  0
 
 #endif
