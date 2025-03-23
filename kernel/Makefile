@@ -61,7 +61,7 @@ $(BUILD_KERNEL)/trap.o:./src/trap.c
 $(BUILD_KERNEL)/gate.o:./src/gate.c
 	gcc $(CFLAGS) $< -o $@
 
-$(BUILD_KERNEL)/memory.o:./src/memory.c
+$(BUILD_KERNEL)/memory.o:./src/mm/memory.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/task.o:./src/task.c
