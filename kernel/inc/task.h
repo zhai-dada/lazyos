@@ -42,7 +42,7 @@ typedef struct tss_struct
     .iomapbaseaddr = (u16)0          \
 }
 
-extern tss_t tss[CPUNUM];
+extern tss_t tss[MAX_CPUNUM];
 
 
 #endif

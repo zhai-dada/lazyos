@@ -5,6 +5,7 @@
 #include <gate.h>
 #include <trap.h>
 #include <task.h>
+#include <cpu.h>
 
 int kernel(void)
 {
@@ -14,11 +15,14 @@ int kernel(void)
     vbe_init();
     serial_printf(SFGREEN, SBBLACK, "%s", a);
     color_printk(YELLOW, BLACK, "%s\n", a);
-    
+
     set_tss_descriptor(10, (void *)&tss[0]); // tss 0 
     load_tr(10);
 
     sys_vector_init();
+    
+    get_cpuinfo();
+
     int b = 1 / 0;
 
     while (1)
