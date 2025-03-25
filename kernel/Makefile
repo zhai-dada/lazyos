@@ -10,6 +10,7 @@ obj = 	$(BUILD_KERNEL)/head.o		\
 		$(BUILD_KERNEL)/list.o		\
 		$(BUILD_KERNEL)/vsprintf.o	\
 		$(BUILD_KERNEL)/string.o	\
+		$(BUILD_KERNEL)/assert.o	\
 		$(BUILD_KERNEL)/serial.o	\
 		$(BUILD_KERNEL)/vbe.o		\
 		$(BUILD_KERNEL)/uefi.o		\
@@ -32,6 +33,9 @@ $(BUILD_KERNEL)/asm.o:./src/lib/asm.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/string.o:./src/lib/string.c
+	gcc $(CFLAGS) $< -o $@
+
+$(BUILD_KERNEL)/assert.o:./src/assert.c
 	gcc $(CFLAGS) $< -o $@
 
 $(BUILD_KERNEL)/libio.o:./src/lib/libio.c

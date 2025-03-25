@@ -6,6 +6,7 @@
 #include <trap.h>
 #include <task.h>
 #include <cpu.h>
+#include <assert.h>
 
 int kernel(void)
 {
@@ -22,7 +23,8 @@ int kernel(void)
     sys_vector_init();
     
     get_cpuinfo();
-
+    assert(1 > 0);
+    assert(0 > 1);
     while (1)
     {
         ;
