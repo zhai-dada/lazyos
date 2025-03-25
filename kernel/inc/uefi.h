@@ -5,32 +5,34 @@
  */
 #include <stdint.h>
 
-struct EFI_GRAPHICSOUTPUT_INFORMATION
+typedef struct efi_graphic_info
 {
     u32 hr;   // 水平分辨率
     u32 vr;   // 垂直分辨率
     u32 ppsl; // 像素每扫描线
     u64 bufferbase;
     u64 buffersize;
-};
-struct EFI_E820_MEMORY_DESCRIPTOR
+} efi_graphic_info_t;
+
+typedef struct efi_e820
 {
     u64 address;
     u64 length;
     u32 type;
-} __attribute__((packed));
+} __attribute__((packed)) efi_e820_t;
 
-struct EFI_E820_MEMORY_DESCRIPTOR_INFORMATION
+typedef struct efi_e820_info
 {
     u32 count;
-    struct EFI_E820_MEMORY_DESCRIPTOR e820_entry[];
-};
-struct KERNEL_BOOT_INFORMATION
-{
-    struct EFI_GRAPHICSOUTPUT_INFORMATION graphicsinf;
-    struct EFI_E820_MEMORY_DESCRIPTOR_INFORMATION e820inf;
-};
+    efi_e820_t e820_entry[];
+} efi_e820_info_t;
 
-extern struct KERNEL_BOOT_INFORMATION *boot_info;
+typedef struct kernel_boot_info
+{
+    efi_graphic_info_t graphicsinf;
+    efi_e820_info_t e820inf;
+} boot_para_t;
+
+extern boot_para_t *boot_info;
 
 #endif
